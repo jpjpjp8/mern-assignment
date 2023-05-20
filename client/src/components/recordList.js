@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
  
 const Record = (props) => (
  <tr>
-   <td>{props.record.name}</td>
-   <td>{props.record.password}</td>
-   <td>{props.record.profession}</td>
-   <td>{props.record.id}</td>   
+   <td>{props.record.song}</td>
+   <td>{props.record.artist}</td>
+   <td>{props.record.videoUrl}</td>
+   <td>{props.record.genre}</td>
    <td>
      <Link className="btn btn-link" to={`/edit/${props.record._id}`}>Edit</Link> |
      <button className="btn btn-link"
@@ -26,7 +26,7 @@ export default function RecordList() {
  // This method fetches the records from the database.
  useEffect(() => {
    async function getRecords() {
-     const response = await fetch(`http://localhost:5000/record/`);
+     const response = await fetch(`http://localhost:3000/record/`);
  
      if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;
@@ -73,11 +73,10 @@ export default function RecordList() {
      <table className="table table-striped" style={{ marginTop: 20 }}>
        <thead>
          <tr>
-           <th>Name</th>
-           <th>Password</th>
-           <th>Profession</th>
-           <th>ID</th>
-           <th>Action</th>
+           <th>Song</th>
+           <th>Artist</th>
+           <th>Video Url</th>
+           <th>Genre</th>
          </tr>
        </thead>
        <tbody>{recordList()}</tbody>
