@@ -3,10 +3,11 @@ import { useParams, useNavigate } from "react-router";
  
 export default function Edit() {
  const [form, setForm] = useState({
-   name: "",
-   password: "",
-   profession: "",
-   id: "",      
+   song: "",
+   artist: "",
+   videoUrl: "",
+   genre: "",
+   records: [],
  });
  const params = useParams();
  const navigate = useNavigate();
@@ -14,7 +15,7 @@ export default function Edit() {
  useEffect(() => {
    async function fetchData() {
      const id = params.id.toString();
-     const response = await fetch(`http://localhost:5000/record/${params.id.toString()}`);
+     const response = await fetch(`http://localhost:3000/record/${params.id.toString()}`);
  
      if (!response.ok) {
        const message = `An error has occurred: ${response.statusText}`;
@@ -47,10 +48,10 @@ export default function Edit() {
  async function onSubmit(e) {
    e.preventDefault();
    const editedPerson = {
-     name: form.name,
-     password: form.password,
-     profession: form.profession,
-     id: form.id,   
+     song: form.song,
+     artist: form.artist,
+     videoUrl: form.videoUrl,
+     genre: form.genre,
    };
  
    // This will send a post request to update the data in the database.
@@ -71,47 +72,123 @@ export default function Edit() {
      <h3>Update Record</h3>
      <form onSubmit={onSubmit}>
        <div className="form-group">
-         <label htmlFor="name">Name: </label>
+         <label htmlFor="song">Song: </label>
          <input
            type="text"
            className="form-control"
-           id="name"
-           value={form.name}
-           onChange={(e) => updateForm({ name: e.target.value })}
+           id="song"
+           value={form.song}
+           onChange={(e) => updateForm({ song: e.target.value })}
          />
        </div>
        <div className="form-group">
-         <label htmlFor="password">Password: </label>
+         <label htmlFor="artist">Artist: </label>
          <input
            type="text"
            className="form-control"
-           id="password"
-           value={form.password}
-           onChange={(e) => updateForm({ password: e.target.value })}
+           id="artist"
+           value={form.artist}
+           onChange={(e) => updateForm({ artist: e.target.value })}
          />
        </div>
        <div className="form-group">
-         <label htmlFor="profession">Profession: </label>
+         <label htmlFor="videoUrl">Video Url: </label>
          <input
            type="text"
            className="form-control"
-           id="profession"
-           value={form.profession}
-           onChange={(e) => updateForm({ profession: e.target.value })}
+           id="videoUrl"
+           value={form.videoUrl}
+           onChange={(e) => updateForm({ videoUrl: e.target.value })}
          />
        </div>
+
        <div className="form-group">
-         <label htmlFor="id">ID: </label>
-         <input
-           type="text"
-           className="form-control"
-           id="id"
-           value={form.id}
-           onChange={(e) => updateForm({ id: e.target.value })}
-         />
-       </div>              
-       <br />
- 
+         <div className="form-check form-check-inline">
+           <input
+             className="form-check-input"
+             type="radio"
+             name="genreOptions"
+             id="pop"
+             value="Pop"
+             checked={form.level === "pop"}
+             onChange={(e) => updateForm({ level: e.target.value })}
+           />
+           <label htmlFor="pop" className="form-check-label">Pop</label>
+         </div>
+         <div className="form-check form-check-inline">
+           <input
+             className="form-check-input"
+             type="radio"
+             name="genreOptions"
+             id="rock"
+             value="rock"
+             checked={form.level === "rock"}
+             onChange={(e) => updateForm({ level: e.target.value })}
+           />
+           <label htmlFor="rock" className="form-check-label">Rock</label>
+         </div>
+         <div className="form-check form-check-inline">
+           <input
+             className="form-check-input"
+             type="radio"
+             name="genreOptions"
+             id="country"
+             value="country"
+             checked={form.level === "country"}
+             onChange={(e) => updateForm({ level: e.target.value })}
+           />
+           <label htmlFor="country" className="form-check-label">Country</label>
+       </div>
+       <div className="form-check form-check-inline">
+           <input
+             className="form-check-input"
+             type="radio"
+             name="genreOptions"
+             id="classical"
+             value="classical"
+             checked={form.level === "classical"}
+             onChange={(e) => updateForm({ level: e.target.value })}
+           />
+           <label htmlFor="classical" className="form-check-label">Classical</label>
+         </div>
+         <div className="form-check form-check-inline">
+           <input
+             className="form-check-input"
+             type="radio"
+             name="genreOptions"
+             id="dance"
+             value="dance"
+             checked={form.level === "dance"}
+             onChange={(e) => updateForm({ level: e.target.value })}
+           />
+           <label htmlFor="dance" className="form-check-label">Dance</label>
+         </div>
+         <div className="form-check form-check-inline">
+           <input
+             className="form-check-input"
+             type="radio"
+             name="genreOptions"
+             id="rap"
+             value="rap"
+             checked={form.level === "rap"}
+             onChange={(e) => updateForm({ level: e.target.value })}
+           />
+           <label htmlFor="rap" className="form-check-label">Rap</label>
+         </div>
+         <div className="form-check form-check-inline">
+           <input
+             className="form-check-input"
+             type="radio"
+             name="genreOptions"
+             id="others"
+             value="others"
+             checked={form.level === "others"}
+             onChange={(e) => updateForm({ level: e.target.value })}
+           />
+           <label htmlFor="others" className="form-check-label">Others</label>
+         </div>
+       </div>
+       <br/>
        <div className="form-group">
          <input
            type="submit"
